@@ -1,0 +1,134 @@
+SQL Query
+
+City wise Application from Google
+
+SELECT la.userid,pn.pincode,pn.cityname,
+CONVERT_TIMEZONE('Asia/Kolkata', TIMESTAMP 'epoch' + applieddate/1000 *INTERVAL '1 second') as approvedate,
+   
+(CASE   WHEN UPPER(la.sourcingcode) = 'SCTOPUP' THEN 'TOPUP'
+       WHEN la.employerid IN (375, 192) THEN 'PARTNERSHIP'
+       WHEN la.employerid IS NOT NULL THEN 'TIE_UP'
+       WHEN UPPER(la.sourcingcode) IN ('SCWM', 'SCGL', 'SCVL', 'SCNB', 'SCKAAN24', 'SCEW', 'SCBHOSU', 'SCNGLS', 'SCNG', 'SCUBER', 'SCNS',
+'SCAFZ', 'SCTDF', 'SCWF', 'SHILPALOAN', 'SCSVH', 'SCCNT', 'SCYU', 'TESTPB', 'LNYNT', 'SCIM', 'SCIS', 'SCAJ', 'SCPB', 'SCNDTS',
+'SCPS', 'SCSTU', 'SCPP', 'SCYE', 'SCBT', 'SCSWIGGY', 'SCRU', 'SCBB', 'SCBC', 'SCBP', 'SCDV', 'VSCL', 'SCCAR', 'SCMM', 'SCLC',
+'SCLA', 'SCTS', 'SCMMM', 'TESTMB', 'SCDO', 'SCLT') THEN 'ALTERNATE'
+       WHEN UPPER(la.sourcingcode) IN ('SCCONN') THEN 'CONNECTOR'
+       WHEN la.sourcingcode IS NULL OR UPPER(la.sourcingcode) IN ('NAN', 'SELECT PARTNERSHIP CODE', 'GOOGLE', '') THEN 'GOOGLE'
+       WHEN UPPER(la.sourcingcode) IN ('(NOT SET)', 'FACEBOOK') THEN 'FACEBOOK'
+       WHEN UPPER(la.sourcingcode) = 'GOOGLE-PLAY' THEN 'ORGANIC'
+       ELSE 'ORGANIC'
+   END) as source
+FROM lam_profile_new lpn
+JOIN pincode pn
+ON pn.pincode=lpn.profiledata_permaddresspincode
+JOIN loan_application la
+ON lpn.userid=la.userid
+ORDER By pn.cityname Asc
+  
+
+City Wise application from Facebook
+
+ELECT la.userid,pn.pincode,pn.cityname,
+CONVERT_TIMEZONE('Asia/Kolkata', TIMESTAMP 'epoch' + applieddate/1000 *INTERVAL '1 second') as approvedate,
+   
+(CASE   WHEN UPPER(la.sourcingcode) = 'SCTOPUP' THEN 'TOPUP'
+       WHEN la.employerid IN (375, 192) THEN 'PARTNERSHIP'
+       WHEN la.employerid IS NOT NULL THEN 'TIE_UP'
+       WHEN UPPER(la.sourcingcode) IN ('SCWM', 'SCGL', 'SCVL', 'SCNB', 'SCKAAN24', 'SCEW', 'SCBHOSU', 'SCNGLS', 'SCNG', 'SCUBER', 'SCNS','SCAFZ', 'SCTDF', 'SCWF', 'SHILPALOAN', 'SCSVH', 'SCCNT', 'SCYU', 'TESTPB', 'LNYNT', 'SCIM', 'SCIS', 'SCAJ', 'SCPB', 'SCNDTS',
+'SCPS', 'SCSTU', 'SCPP', 'SCYE', 'SCBT', 'SCSWIGGY', 'SCRU', 'SCBB', 'SCBC', 'SCBP', 'SCDV', 'VSCL', 'SCCAR', 'SCMM', 'SCLC',
+'SCLA', 'SCTS', 'SCMMM', 'TESTMB', 'SCDO', 'SCLT') THEN 'ALTERNATE'
+       WHEN UPPER(la.sourcingcode) IN ('SCCONN') THEN 'CONNECTOR'
+       WHEN la.sourcingcode IS NULL OR UPPER(la.sourcingcode) IN ('NAN', 'SELECT PARTNERSHIP CODE', 'GOOGLE', '') THEN 'GOOGLE'
+       WHEN UPPER(la.sourcingcode) IN ('(NOT SET)', 'FACEBOOK') THEN 'FACEBOOK'
+       WHEN UPPER(la.sourcingcode) = 'GOOGLE-PLAY' THEN 'ORGANIC'
+       ELSE 'ORGANIC'
+   END) as source
+FROM lam_profile_new lpn
+JOIN pincode pn
+ON pn.pincode=lpn.profiledata_permaddresspincode
+JOIN loan_application la
+ON lpn.userid=la.userid
+ORDER By pn.cityname Asc
+
+
+City Wise Approval Application from Google
+
+SELECT la.userid,pn.pincode,pn.cityname,
+CONVERT_TIMEZONE('Asia/Kolkata', TIMESTAMP 'epoch' + applieddate/1000 *INTERVAL '1 second') as approvedate,
+   
+(CASE   WHEN UPPER(la.sourcingcode) = 'SCTOPUP' THEN 'TOPUP'
+       WHEN la.employerid IN (375, 192) THEN 'PARTNERSHIP'
+       WHEN la.employerid IS NOT NULL THEN 'TIE_UP'
+       WHEN UPPER(la.sourcingcode) IN ('SCWM', 'SCGL', 'SCVL', 'SCNB', 'SCKAAN24', 'SCEW', 'SCBHOSU', 'SCNGLS', 'SCNG', 'SCUBER', 'SCNS',
+'SCAFZ', 'SCTDF', 'SCWF', 'SHILPALOAN', 'SCSVH', 'SCCNT', 'SCYU', 'TESTPB', 'LNYNT', 'SCIM', 'SCIS', 'SCAJ', 'SCPB', 'SCNDTS',
+'SCPS', 'SCSTU', 'SCPP', 'SCYE', 'SCBT', 'SCSWIGGY', 'SCRU', 'SCBB', 'SCBC', 'SCBP', 'SCDV', 'VSCL', 'SCCAR', 'SCMM', 'SCLC',
+'SCLA', 'SCTS', 'SCMMM', 'TESTMB', 'SCDO', 'SCLT') THEN 'ALTERNATE'
+       WHEN UPPER(la.sourcingcode) IN ('SCCONN') THEN 'CONNECTOR'
+       WHEN la.sourcingcode IS NULL OR UPPER(la.sourcingcode) IN ('NAN', 'SELECT PARTNERSHIP CODE', 'GOOGLE', '') THEN 'GOOGLE'
+       WHEN UPPER(la.sourcingcode) IN ('(NOT SET)', 'FACEBOOK') THEN 'FACEBOOK'
+       WHEN UPPER(la.sourcingcode) = 'GOOGLE-PLAY' THEN 'ORGANIC'
+    ELSE 'ORGANIC'
+   END) as source
+FROM lam_profile_new lpn
+JOIN pincode pn
+ON pn.pincode=lpn.profiledata_permaddresspincode
+JOIN loan_application la
+ON lpn.userid=la.userid
+where
+ la.status='DATASIGNS_APPROVED'
+ORDER By pn.cityname Asc
+
+
+City Approval Application from facebook
+
+SELECT la.userid,pn.pincode,pn.cityname,
+CONVERT_TIMEZONE('Asia/Kolkata', TIMESTAMP 'epoch' + applieddate/1000 *INTERVAL '1 second') as approvedate,
+   
+(CASE   WHEN UPPER(la.sourcingcode) = 'SCTOPUP' THEN 'TOPUP'
+       WHEN la.employerid IN (375, 192) THEN 'PARTNERSHIP'
+       WHEN la.employerid IS NOT NULL THEN 'TIE_UP'
+       WHEN UPPER(la.sourcingcode) IN ('SCWM', 'SCGL', 'SCVL', 'SCNB', 'SCKAAN24', 'SCEW', 'SCBHOSU', 'SCNGLS', 'SCNG', 'SCUBER', 'SCNS',
+'SCAFZ', 'SCTDF', 'SCWF', 'SHILPALOAN', 'SCSVH', 'SCCNT', 'SCYU', 'TESTPB', 'LNYNT', 'SCIM', 'SCIS', 'SCAJ', 'SCPB', 'SCNDTS',
+'SCPS', 'SCSTU', 'SCPP', 'SCYE', 'SCBT', 'SCSWIGGY', 'SCRU', 'SCBB', 'SCBC', 'SCBP', 'SCDV', 'VSCL', 'SCCAR', 'SCMM', 'SCLC',
+'SCLA', 'SCTS', 'SCMMM', 'TESTMB', 'SCDO', 'SCLT') THEN 'ALTERNATE'
+       WHEN UPPER(la.sourcingcode) IN ('SCCONN') THEN 'CONNECTOR'
+       WHEN la.sourcingcode IS NULL OR UPPER(la.sourcingcode) IN ('NAN', 'SELECT PARTNERSHIP CODE', 'GOOGLE', '') THEN 'GOOGLE'
+       WHEN UPPER(la.sourcingcode) IN ('(NOT SET)', 'FACEBOOK') THEN 'FACEBOOK'
+       WHEN UPPER(la.sourcingcode) = 'GOOGLE-PLAY' THEN 'ORGANIC'
+       ELSE 'ORGANIC'
+   END) as source
+FROM lam_profile_new lpn
+JOIN pincode pn
+ON pn.pincode=lpn.profiledata_permaddresspincode
+JOIN loan_application la
+ON lpn.userid=la.userid
+where
+ la.status='DATASIGNS_APPROVED'
+ORDER By pn.cityname Asc
+City wise Approval from Organic
+
+SELECT la.userid,pn.pincode,pn.cityname,
+CONVERT_TIMEZONE('Asia/Kolkata', TIMESTAMP 'epoch' + applieddate/1000 *INTERVAL '1 second') as approvedate,
+   
+(CASE   WHEN UPPER(la.sourcingcode) = 'SCTOPUP' THEN 'TOPUP'
+       WHEN la.employerid IN (375, 192) THEN 'PARTNERSHIP'
+       WHEN la.employerid IS NOT NULL THEN 'TIE_UP'
+       WHEN UPPER(la.sourcingcode) IN ('SCWM', 'SCGL', 'SCVL', 'SCNB', 'SCKAAN24', 'SCEW', 'SCBHOSU', 'SCNGLS', 'SCNG', 'SCUBER', 'SCNS',
+'SCAFZ', 'SCTDF', 'SCWF', 'SHILPALOAN', 'SCSVH', 'SCCNT', 'SCYU', 'TESTPB', 'LNYNT', 'SCIM', 'SCIS', 'SCAJ', 'SCPB', 'SCNDTS',
+'SCPS', 'SCSTU', 'SCPP', 'SCYE', 'SCBT', 'SCSWIGGY', 'SCRU', 'SCBB', 'SCBC', 'SCBP', 'SCDV', 'VSCL', 'SCCAR', 'SCMM', 'SCLC',
+'SCLA', 'SCTS', 'SCMMM', 'TESTMB', 'SCDO', 'SCLT') THEN 'ALTERNATE'
+       WHEN UPPER(la.sourcingcode) IN ('SCCONN') THEN 'CONNECTOR'
+       WHEN la.sourcingcode IS NULL OR UPPER(la.sourcingcode) IN ('NAN', 'SELECT PARTNERSHIP CODE', 'GOOGLE', '') THEN 'GOOGLE'
+       WHEN UPPER(la.sourcingcode) IN ('(NOT SET)', 'FACEBOOK') THEN 'FACEBOOK'
+       WHEN UPPER(la.sourcingcode) = 'GOOGLE-PLAY' THEN 'ORGANIC'
+       ELSE 'ORGANIC'
+   END) as source
+FROM lam_profile_new lpn
+JOIN pincode pn
+ON pn.pincode=lpn.profiledata_permaddresspincode
+JOIN loan_application la
+ON lpn.userid=la.userid
+where
+ la.status='DATASIGNS_APPROVED'
+ORDER By pn.cityname Asc
+
